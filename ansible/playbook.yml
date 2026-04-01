@@ -68,7 +68,7 @@
         mode: "0755"
 
     - name: Install PostgreSQL
-      when: install_db | string | lower == 'true' and db_type | string | lower == 'postgres'
+      when: install_db | default('') | string | lower == 'true' and db_type | default('') | string | lower == 'postgres'
       block:
         - name: Install PostgreSQL packages
           apt:
@@ -110,7 +110,7 @@
           when: (db_name or node_env_db_name) and (db_username or node_env_db_user)
 
     - name: Install MySQL
-      when: install_db | string | lower == 'true' and db_type | string | lower == 'mysql'
+      when: install_db | default('') | string | lower == 'true' and db_type | default('') | string | lower == 'mysql'
       block:
         - name: Install MySQL packages
           apt:
@@ -138,7 +138,7 @@
           when: (db_name or node_env_db_name) and (db_username or node_env_db_user)
 
     - name: Install MongoDB
-      when: install_db | string | lower == 'true' and db_type | string | lower == 'mongodb'
+      when: install_db | default('') | string | lower == 'true' and db_type | default('') | string | lower == 'mongodb'
       block:
         - name: Add MongoDB apt key
           shell: |
